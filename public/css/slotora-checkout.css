@@ -1,0 +1,255 @@
+/* DSD Delivery Slots — Checkout Styles */
+/* Unique calendar + slot picker UI */
+
+:root {
+    --dsd-primary:    #2563eb;
+    --dsd-primary-lt: #eff6ff;
+    --dsd-primary-dk: #1d4ed8;
+    --dsd-success:    #16a34a;
+    --dsd-success-lt: #f0fdf4;
+    --dsd-warn:       #d97706;
+    --dsd-warn-lt:    #fffbeb;
+    --dsd-danger:     #dc2626;
+    --dsd-gray-50:    #f8fafc;
+    --dsd-gray-100:   #f1f5f9;
+    --dsd-gray-200:   #e2e8f0;
+    --dsd-gray-400:   #94a3b8;
+    --dsd-gray-500:   #64748b;
+    --dsd-gray-700:   #334155;
+    --dsd-gray-900:   #0f172a;
+    --dsd-radius:     12px;
+    --dsd-shadow:     0 2px 8px rgba(0,0,0,.07);
+}
+
+/* ── Outer wrapper ───────────────────────────────────────── */
+.dsd-delivery-picker {
+    background: linear-gradient(135deg, #f0f7ff 0%, #f8fafc 100%);
+    border: 1.5px solid #c7dcf8;
+    border-radius: var(--dsd-radius);
+    padding: 24px;
+    margin: 28px 0;
+    position: relative;
+    overflow: hidden;
+}
+.dsd-delivery-picker::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--dsd-primary), #7c3aed, #0891b2);
+    border-radius: var(--dsd-radius) var(--dsd-radius) 0 0;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.dsd-picker-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 22px;
+}
+.dsd-picker-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--dsd-primary); color: #fff;
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(37,99,235,.3);
+}
+.dsd-picker-title {
+    font-size: 16px; font-weight: 700; color: var(--dsd-gray-900);
+    margin: 0 0 2px !important;
+}
+.dsd-picker-subtitle {
+    font-size: 13px; color: var(--dsd-gray-500); margin: 0 !important;
+}
+
+.dsd-fields-wrap { display: flex; flex-direction: column; gap: 24px; }
+
+/* ── Label ───────────────────────────────────────────────── */
+.dsd-label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--dsd-gray-700); margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: .04em;
+}
+.dsd-required { color: var(--dsd-danger); margin-left: 2px; }
+
+/* ── Calendar ────────────────────────────────────────────── */
+.dsd-calendar-wrap {
+    background: #fff; border: 1.5px solid var(--dsd-gray-200);
+    border-radius: 10px; overflow: hidden;
+    box-shadow: var(--dsd-shadow);
+    max-width: 340px;
+}
+
+/* Nav bar */
+.dsd-cal-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: var(--dsd-gray-900);
+    color: #fff;
+}
+.dsd-cal-btn {
+    width: 30px; height: 30px; border: none; cursor: pointer;
+    background: rgba(255,255,255,.12); color: #fff; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+}
+.dsd-cal-btn:hover { background: rgba(255,255,255,.22); }
+.dsd-cal-month-label {
+    font-size: 14px; font-weight: 600; letter-spacing: .02em;
+}
+
+/* Weekday headers */
+.dsd-cal-weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    text-align: center; padding: 8px 6px 4px;
+    background: var(--dsd-gray-50);
+}
+.dsd-cal-weekdays span {
+    font-size: 10px; font-weight: 700; color: var(--dsd-gray-400);
+    text-transform: uppercase; letter-spacing: .05em;
+    padding: 3px 0;
+}
+
+/* Grid */
+.dsd-cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    padding: 6px 6px 10px;
+    gap: 2px;
+}
+.dsd-cal-cell {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 500; border-radius: 8px;
+    cursor: default; color: var(--dsd-gray-400);
+    transition: all .12s;
+    position: relative;
+}
+.dsd-cal-cell.dsd-available {
+    color: var(--dsd-gray-900); cursor: pointer;
+    font-weight: 600;
+}
+.dsd-cal-cell.dsd-available:hover {
+    background: var(--dsd-primary-lt); color: var(--dsd-primary);
+}
+.dsd-cal-cell.dsd-selected {
+    background: var(--dsd-primary) !important; color: #fff !important;
+    box-shadow: 0 3px 10px rgba(37,99,235,.4);
+    transform: scale(1.1);
+}
+.dsd-cal-cell.dsd-today::after {
+    content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px; border-radius: 50%; background: var(--dsd-primary);
+}
+.dsd-cal-cell.dsd-today.dsd-selected::after { background: rgba(255,255,255,.7); }
+.dsd-cal-cell.dsd-past  { color: var(--dsd-gray-200); text-decoration: line-through; }
+.dsd-cal-cell.dsd-other-month { color: var(--dsd-gray-200); }
+
+/* Selected date pill */
+.dsd-selected-date-display {
+    margin-top: 10px; background: var(--dsd-success-lt);
+    border: 1.5px solid #86efac; border-radius: 8px;
+    padding: 9px 14px; font-size: 13px; font-weight: 600;
+    color: var(--dsd-success); display: flex; align-items: center; gap: 8px;
+    max-width: 340px;
+}
+.dsd-selected-date-display::before { content: '✓'; font-size: 14px; }
+
+/* ── Time slot grid ──────────────────────────────────────── */
+.dsd-slots-group { animation: dsdSlideIn .2s ease; }
+@keyframes dsdSlideIn {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+.dsd-slots-loading {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--dsd-gray-500);
+}
+.dsd-spinner {
+    width: 16px; height: 16px; border: 2px solid var(--dsd-gray-200);
+    border-top-color: var(--dsd-primary); border-radius: 50%;
+    animation: dsdSpin .7s linear infinite; display: inline-block;
+}
+@keyframes dsdSpin { to { transform: rotate(360deg); } }
+
+.dsd-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+}
+
+.dsd-slot-btn {
+    background: #fff; border: 1.5px solid var(--dsd-gray-200);
+    border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; transition: all .15s;
+    text-align: left; display: flex; flex-direction: column; gap: 4px;
+    position: relative; overflow: hidden;
+}
+.dsd-slot-btn::before {
+    content: ''; position: absolute; top:0; left:0; bottom:0; width:3px;
+    background: transparent; transition: background .15s;
+}
+.dsd-slot-btn:hover {
+    border-color: var(--dsd-primary);
+    box-shadow: 0 2px 8px rgba(37,99,235,.12);
+    transform: translateY(-1px);
+}
+.dsd-slot-btn:hover::before { background: var(--dsd-primary); }
+
+.dsd-slot-btn.dsd-slot--selected {
+    background: var(--dsd-primary-lt);
+    border-color: var(--dsd-primary);
+    box-shadow: 0 3px 12px rgba(37,99,235,.18);
+}
+.dsd-slot-btn.dsd-slot--selected::before { background: var(--dsd-primary); }
+
+.dsd-slot-btn.dsd-slot--full {
+    background: var(--dsd-gray-50); opacity: .55;
+    cursor: not-allowed; pointer-events: none;
+}
+
+.dsd-slot-label {
+    font-size: 13px; font-weight: 600; color: var(--dsd-gray-900);
+    line-height: 1.3;
+}
+.dsd-slot-btn.dsd-slot--selected .dsd-slot-label { color: var(--dsd-primary-dk); }
+.dsd-slot-status {
+    font-size: 11px; font-weight: 500; color: var(--dsd-success);
+}
+.dsd-slot-btn.dsd-slot--full .dsd-slot-status { color: var(--dsd-danger); }
+
+/* Check mark for selected */
+.dsd-slot-check {
+    position: absolute; top: 8px; right: 10px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--dsd-primary); color: #fff;
+    font-size: 11px; display: none;
+    align-items: center; justify-content: center;
+}
+.dsd-slot-btn.dsd-slot--selected .dsd-slot-check { display: flex; }
+
+/* ── Validation message ───────────────────────────────────── */
+.dsd-validation-msg {
+    background: #fef2f2; border: 1.5px solid #fca5a5;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; font-weight: 500; color: var(--dsd-danger);
+    margin-top: 16px; display: flex; align-items: center; gap: 8px;
+}
+.dsd-validation-msg::before { content: '⚠'; font-size: 15px; }
+
+/* ── Order details & email ────────────────────────────────── */
+.dsd-order-delivery-info {
+    background: var(--dsd-gray-50); border: 1.5px solid var(--dsd-gray-200);
+    border-radius: 10px; padding: 20px 24px; margin: 24px 0;
+}
+.dsd-order-delivery-info h2 {
+    font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--dsd-gray-900);
+}
+.dsd-info-table { width: 100%; border-collapse: collapse; }
+.dsd-info-table th {
+    text-align: left; font-size: 13px; font-weight: 500;
+    color: var(--dsd-gray-500); padding: 6px 0; width: 160px;
+}
+.dsd-info-table td {
+    font-size: 13px; font-weight: 600; color: var(--dsd-gray-900); padding: 6px 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .dsd-delivery-picker { padding: 16px; }
+    .dsd-calendar-wrap, .dsd-selected-date-display { max-width: 100%; }
+    .dsd-slots-grid { grid-template-columns: 1fr 1fr; }
+}
